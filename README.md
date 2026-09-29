@@ -199,6 +199,3 @@ The seed script is idempotent by natural key (re-running it updates existing row
 python -m scripts.seed --reset
 ```
 
-## Attribution
-
-Built with [Claude Code](https://claude.com/claude-code).
