@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  /* Binance-inspired dark palette */
+  --color-bg: #0b0e11;
+  --color-surface: #181a20;
+  --color-surface-2: #1e2329;
+  --color-surface-3: #2b3139;
+  --color-border: #2b3139;
+
+  --color-content: #eaecef;
+  --color-content-dim: #848e9c;
+  --color-content-faint: #5e6673;
+
+  --color-accent: #fcd535;
+  --color-accent-hover: #f0b90b;
+  --color-accent-ink: #181a20;
+
+  --color-up: #0ecb81;
+  --color-down: #f6465d;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-content);
+}
+
+/* Autofill in Chrome otherwise paints inputs bright blue/white. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-content);
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface-2) inset;
+  caret-color: var(--color-content);
+}
