@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/Navbar";
 import { AuthProvider } from "@/lib/auth-context";
 
 const geistSans = Geist({
@@ -15,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CryptoEngine — Exchange",
-  description: "A Binance-inspired crypto exchange built on FastAPI.",
+  title: "Berko — Crypto Platform",
+  description: "Berko is a production-style crypto exchange built on FastAPI and PostgreSQL.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,11 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col font-sans">
-        <AuthProvider>
-          <Navbar />
-          <main className="flex flex-1 flex-col">{children}</main>
-        </AuthProvider>
+      <body className="min-h-full font-sans">
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

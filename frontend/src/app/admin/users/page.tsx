@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { AuthGuard } from "@/components/AuthGuard";
+import { AppShell } from "@/components/AppShell";
 import { Alert, Badge, Button, Card } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
@@ -146,7 +146,7 @@ function AdminUsersContent() {
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-10">
+    <div className="mx-auto w-full max-w-5xl p-4 lg:p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">User management</h1>
         <p className="mt-1 text-sm text-content-dim">
@@ -263,8 +263,8 @@ function AdminUsersContent() {
 
 export default function AdminUsersPage() {
   return (
-    <AuthGuard requireAdmin>
+    <AppShell requireAdmin>
       <AdminUsersContent />
-    </AuthGuard>
+    </AppShell>
   );
 }

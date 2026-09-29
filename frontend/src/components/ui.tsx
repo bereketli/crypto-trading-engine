@@ -7,7 +7,7 @@ function cx(...parts: Array<string | false | null | undefined>) {
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
   loading?: boolean;
 };
 
@@ -20,12 +20,13 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+    "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
   const variants = {
     primary: "bg-accent text-accent-ink hover:bg-accent-hover",
-    secondary: "bg-surface-3 text-content hover:bg-surface-3/70",
-    ghost: "text-content-dim hover:text-content hover:bg-surface-2",
+    secondary: "border border-border bg-surface-2 text-content hover:bg-surface-3",
+    ghost: "text-content-dim hover:bg-surface-2 hover:text-content",
+    danger: "bg-down/15 text-down hover:bg-down/25",
   } as const;
 
   return (
@@ -64,9 +65,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
         className={cx(
-          "w-full rounded-lg border bg-surface-2 px-3.5 py-2.5 text-sm text-content placeholder:text-content-faint",
-          "focus:outline-none focus:ring-2 focus:ring-accent/60",
-          error ? "border-down" : "border-border",
+          "w-full rounded-xl border bg-surface-2 px-3.5 py-2.5 text-sm text-content placeholder:text-content-faint",
+          "focus:outline-none focus:ring-2 focus:ring-accent/30",
+          error ? "border-down" : "border-border focus:border-accent/40",
           className,
         )}
         {...props}
@@ -86,12 +87,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
 export function Alert({ kind = "error", children }: { kind?: "error" | "success"; children: React.ReactNode }) {
   const styles =
-    kind === "error"
-      ? "border-down/30 bg-down/10 text-down"
-      : "border-up/30 bg-up/10 text-up";
+    kind === "error" ? "border-down/30 bg-down/10 text-down" : "border-up/30 bg-up/10 text-up";
 
   return (
-    <div role="alert" className={cx("rounded-lg border px-3.5 py-2.5 text-sm", styles)}>
+    <div role="alert" className={cx("rounded-xl border px-3.5 py-2.5 text-sm", styles)}>
       {children}
     </div>
   );
@@ -99,19 +98,28 @@ export function Alert({ kind = "error", children }: { kind?: "error" | "success"
 
 export function Card({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
-    <div className={cx("rounded-xl border border-border bg-surface p-6", className)}>{children}</div>
+    <div className={cx("rounded-2xl border border-border bg-surface", className ?? "p-6")}>
+      {children}
+    </div>
   );
 }
 
-export function Badge({ tone = "neutral", children }: { tone?: "neutral" | "up" | "warn"; children: React.ReactNode }) {
+export function Badge({
+  tone = "neutral",
+  children,
+}: {
+  tone?: "neutral" | "up" | "warn" | "down";
+  children: React.ReactNode;
+}) {
   const tones = {
     neutral: "bg-surface-3 text-content-dim",
     up: "bg-up/15 text-up",
     warn: "bg-accent/15 text-accent",
+    down: "bg-down/15 text-down",
   } as const;
 
   return (
-    <span className={cx("inline-flex items-center rounded px-2 py-0.5 text-xs font-medium", tones[tone])}>
+    <span className={cx("inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium", tones[tone])}>
       {children}
     </span>
   );

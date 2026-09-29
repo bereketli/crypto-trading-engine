@@ -1,23 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  /* Binance-inspired dark palette */
-  --color-bg: #0b0e11;
-  --color-surface: #181a20;
-  --color-surface-2: #1e2329;
-  --color-surface-3: #2b3139;
-  --color-border: #2b3139;
+  /* Berko: deep slate-green ground, mint accent */
+  --color-bg: #080b0a;
+  --color-surface: #0f1512;
+  --color-surface-2: #141b18;
+  --color-surface-3: #1c2620;
+  --color-border: #1e2a25;
+  --color-border-soft: #16201c;
 
-  --color-content: #eaecef;
-  --color-content-dim: #848e9c;
-  --color-content-faint: #5e6673;
+  --color-content: #e8f0ec;
+  --color-content-dim: #8ea39a;
+  --color-content-faint: #5d6f68;
 
-  --color-accent: #fcd535;
-  --color-accent-hover: #f0b90b;
-  --color-accent-ink: #181a20;
+  --color-accent: #2fd39a;
+  --color-accent-hover: #26bd8a;
+  --color-accent-soft: #10231d;
+  --color-accent-ink: #04221a;
 
-  --color-up: #0ecb81;
-  --color-down: #f6465d;
+  --color-up: #2fd39a;
+  --color-down: #f6555f;
+  --color-info: #4aa8ff;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -32,11 +35,47 @@ body {
   color: var(--color-content);
 }
 
-/* Autofill in Chrome otherwise paints inputs bright blue/white. */
+/* Autofill otherwise paints inputs bright blue/white in Chrome. */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--color-content);
   -webkit-box-shadow: 0 0 0 1000px var(--color-surface-2) inset;
   caret-color: var(--color-content);
+}
+
+/* Slim scrollbars so dense panels don't get chunky OS bars. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-3) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes berko-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: berko-marquee 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
 }

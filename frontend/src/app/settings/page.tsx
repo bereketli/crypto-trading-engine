@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AuthGuard } from "@/components/AuthGuard";
+import { AppShell } from "@/components/AppShell";
 import { Alert, Badge, Button, Card, Input } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
@@ -208,8 +208,8 @@ function PasswordSection() {
 
 export default function SettingsPage() {
   return (
-    <AuthGuard>
-      <div className="mx-auto w-full max-w-2xl px-4 py-10">
+    <AppShell>
+      <div className="mx-auto w-full max-w-2xl p-4 lg:p-6">
         <h1 className="mb-8 text-2xl font-bold">Settings</h1>
         <div className="space-y-6">
           <ProfileSection />
@@ -217,6 +217,6 @@ export default function SettingsPage() {
           <PasswordSection />
         </div>
       </div>
-    </AuthGuard>
+    </AppShell>
   );
 }
