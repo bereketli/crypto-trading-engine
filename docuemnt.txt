@@ -1,0 +1,353 @@
+Crypto Exchange Backend System (FastAPI Practice Project)
+Software Requirements Specification (SRS)
+Project Name: Binance-Inspired Crypto Exchange Backend
+Technology: FastAPI (Python)
+Purpose: Educational & Practice Project
+Version: 1.0
+
+1. Introduction
+Purpose
+This project aims to build a production-style cryptocurrency exchange backend inspired by Binance using FastAPI. The objective is to gain hands-on experience designing scalable backend systems, implementing secure authentication, managing wallets, processing orders, building a matching engine, and exposing real-time APIs.
+The application is intended for educational purposes only and will not interact with real cryptocurrencies or real financial assets.
+
+2. Goals
+The project will focus on learning:
+FastAPI architecture
+Asynchronous programming
+REST API development
+WebSocket communication
+JWT authentication
+PostgreSQL database design
+Redis caching
+Event-driven architecture
+Message queues
+Docker deployment
+Microservices
+High-performance backend development
+
+3. Technology Stack
+Backend
+Python 3.13+
+FastAPI
+Uvicorn
+Pydantic
+SQLAlchemy 2.0
+Alembic
+Database
+PostgreSQL
+Redis
+Authentication
+JWT
+Refresh Tokens
+Passlib (password hashing)
+Messaging
+Apache Kafka
+Real-Time
+WebSocket
+Redis Pub/Sub
+Storage
+PostgreSQL
+Redis
+Documentation
+OpenAPI (Swagger UI)
+ReDoc
+Deployment
+Docker
+Docker Compose
+Kubernetes (optional)
+Monitoring
+Prometheus
+Grafana
+
+4. System Architecture
+The backend will follow a microservices architecture.
+Services include:
+API Gateway
+Authentication Service
+User Service
+Wallet Service
+Order Service
+Matching Engine
+Trade Service
+Market Data Service
+Notification Service
+Admin Service
+Each service should have its own database schema (or database) and communicate using REST APIs or Kafka events.
+
+5. Core Features
+Authentication
+Register
+Login
+Refresh Access Token
+Logout
+Change Password
+Email Verification (optional)
+Two-Factor Authentication (future)
+
+User Management
+User Profile
+KYC Status (simulation)
+Security Settings
+API Keys (future)
+
+Wallet
+Supported assets:
+BTC
+ETH
+USDT
+BNB
+Demo Coins
+Functions:
+View Balances
+Deposit (simulation)
+Withdraw (simulation)
+Internal Transfers
+Transaction History
+
+Trading
+Trading pairs:
+BTC/USDT
+ETH/USDT
+BNB/USDT
+Order Types:
+Market
+Limit
+Stop Limit
+Stop Market
+Order Actions:
+Create Order
+Cancel Order
+View Open Orders
+Order History
+
+Matching Engine
+Responsibilities:
+Receive new orders
+Match buy/sell orders
+Price-time priority
+Partial fills
+Complete fills
+Trade execution
+Outputs:
+Trade Events
+Wallet Updates
+Order Status Updates
+
+Trade Service
+Responsibilities:
+Store trades
+User trade history
+Trading statistics
+
+Market Data
+Provide:
+Live ticker
+Order book
+Recent trades
+OHLC candles
+24-hour statistics
+Delivered through REST and WebSockets.
+
+6. Database Design
+Users
+id
+email
+username
+password_hash
+is_active
+created_at
+Wallets
+id
+user_id
+asset
+available_balance
+locked_balance
+Orders
+id
+user_id
+trading_pair
+side
+type
+quantity
+price
+filled_quantity
+status
+created_at
+Trades
+id
+buy_order_id
+sell_order_id
+quantity
+price
+created_at
+Transactions
+id
+wallet_id
+transaction_type
+amount
+asset
+status
+created_at
+
+7. API Endpoints
+Authentication
+POST /auth/register
+POST /auth/login
+POST /auth/refresh
+POST /auth/logout
+Users
+GET /users/me
+PUT /users/me
+Wallet
+GET /wallets
+GET /wallets/{asset}
+POST /wallets/deposit
+POST /wallets/withdraw
+Orders
+POST /orders
+DELETE /orders/{id}
+GET /orders
+GET /orders/history
+Market
+GET /market/ticker
+GET /market/orderbook
+GET /market/trades
+GET /market/candles
+
+8. WebSocket Endpoints
+Public:
+/ws/ticker
+/ws/orderbook
+/ws/trades
+Private:
+/ws/orders
+/ws/wallet
+/ws/notifications
+
+9. Security
+Authentication:
+JWT Access Token
+Refresh Token
+Password Storage:
+Argon2 or bcrypt hashing
+Authorization:
+Role-Based Access Control (RBAC)
+Security Measures:
+HTTPS
+Rate Limiting
+Request Validation
+SQL Injection Protection
+CORS Configuration
+Audit Logging
+
+10. Project Structure
+crypto-exchange/
+
+├── app/
+│   ├── api/
+│   ├── auth/
+│   ├── config/
+│   ├── database/
+│   ├── models/
+│   ├── schemas/
+│   ├── services/
+│   ├── repositories/
+│   ├── websocket/
+│   ├── matching_engine/
+│   ├── kafka/
+│   ├── redis/
+│   ├── middleware/
+│   ├── utils/
+│   └── main.py
+│
+├── alembic/
+├── tests/
+├── docker/
+├── scripts/
+├── docs/
+├── requirements.txt
+├── Dockerfile
+└── docker-compose.yml
+
+
+11. Development Phases
+Phase 1
+Project setup
+FastAPI configuration
+PostgreSQL
+Authentication
+Phase 2
+User service
+Wallet service
+Phase 3
+Order service
+Phase 4
+Matching engine
+Phase 5
+Trade execution
+Phase 6
+WebSockets
+Phase 7
+Redis
+Kafka
+Phase 8
+Monitoring
+Docker deployment
+Load testing
+
+12. Future Improvements
+Margin Trading
+Futures
+Copy Trading
+Trading Bots
+Mobile API
+Multi-language Support
+API Keys
+Portfolio Analytics
+Risk Engine
+Blockchain Integration
+Multi-region Deployment
+
+13. Learning Outcomes
+By completing this project, you should be able to:
+Design scalable FastAPI applications.
+Build asynchronous REST APIs.
+Implement secure authentication and authorisation.
+Create a high-performance matching engine.
+Use PostgreSQL and Redis effectively.
+Stream real-time data with WebSockets.
+Build event-driven services with Kafka.
+Containerise applications with Docker.
+Monitor production-style systems.
+Understand the architecture of modern cryptocurrency exchanges.
+
+Disclaimer
+This project is for educational and practice purposes only. It simulates the backend of a cryptocurrency exchange and does not handle real cryptocurrency, blockchain transactions, or fiat payments. It is intended to demonstrate backend engineering concepts, distributed system design, and secure financial application architecture.
+
+
+
+
+What the verifier checks
+Every test drives the game in a browser. It reads what a player would see: the ship's position, whether a run ends, whether a pickup registers, and where HUD elements sit on screen. No test reads source code or checks variable names.
+Checks
+Progress reaches at least 95% when the ship reaches the finish gate.
+The run ends at the gate. The ship overshoots by no more than 40px.
+After a retry, progress resets to 0-2% at spawn. It reads 45-55% at the halfway point.
+After a level clear, the next level's progress also resets to 0%. It reads 45-55% at its halfway point.
+All three stars on levels 1-5 sit inside the flyable canyon. None are stuck in the rock.
+Flying through each star collects it. The counter reaches 3/3.
+The ship survives near the ceiling when there is open space above it.
+At 1024px and 900px widths, all four HUD buttons stay on screen and clickable.
+The progress percentage does not overlap the star or coin counters.
+The HUD strip is tall enough. Nothing inside it gets clipped.
+The ship still survives a close pass near the floor (must keep working).
+Flying through a coin still collects it (must keep working).
+The HUD stays hidden until Play is pressed, then appears (must keep working).
+Pausing freezes the ship. It drifts less than 1px over 350ms (must keep working).
+Why these checks prove the fix
+The broken app has five defects. The finish gate does not stop the run, so the ship overshoots and progress reads low at the finish line. The progress formula breaks after a retry or level clear, so it can show 0% mid-run. Stars sit on the wrong side of the canyon centerline, placing them in the rock. The ceiling's collision margin is too generous, killing the ship in open space. The HUD panel is too wide, pushing buttons off screen at narrow widths.
+Each check targets one defect. Fixing that value, and only that value, makes the matching check pass.
+The four checks marked "must keep working" cover floor collision, coin pickup, HUD visibility, and pause. The fix does not touch any of these. They confirm the fix breaks nothing that already worked.
+What these tests do not check: source code, function names, audio, exact colors or fonts, frame rate, or every level in the game. The star check covers levels 1-5 as a sample, not the full set.
+
+
