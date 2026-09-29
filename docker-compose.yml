@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql+psycopg://postgres:password@postgres:5432/exchange
+      DATABASE_URL: postgresql+psycopg://postgres:1234@postgres:5432/crypto_trading_engine
       REDIS_URL: redis://redis:6379
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
@@ -24,14 +24,14 @@ services:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: exchange
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: crypto_trading_engine
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d exchange"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d crypto_trading_engine"]
       interval: 5s
       timeout: 5s
       retries: 5
